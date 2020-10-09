@@ -148,6 +148,19 @@ class _ZefyrLineState extends State<ZefyrLine> {
     if (style.contains(NotusAttribute.link)) {
       result = result.merge(theme.attributeTheme.link);
     }
+    if(style.contains(NotusAttribute.color)) {
+      final hexStringToColor = (String hex) {
+        hex = hex.replaceFirst('#', '');
+        hex = hex.length == 6 ? 'ff' + hex : hex;
+        var val = int.parse(hex, radix: 16);
+        return Color(val);
+      };
+      final color = hexStringToColor(style.value<String>(NotusAttribute.color));
+      result = result.copyWith(color: color);
+    }
+    if(style.contains(NotusAttribute.size)) {
+      result = result.copyWith(fontSize: style.value<int>(NotusAttribute.size).toDouble());
+    }
     return result;
   }
 

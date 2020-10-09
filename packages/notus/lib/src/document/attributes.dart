@@ -75,7 +75,9 @@ class NotusAttribute<T> implements NotusAttributeBuilder<T> {
     NotusAttribute.bold.key: NotusAttribute.bold,
     NotusAttribute.italic.key: NotusAttribute.italic,
     NotusAttribute.link.key: NotusAttribute.link,
+    NotusAttribute.color.key: NotusAttribute.color,
     NotusAttribute.heading.key: NotusAttribute.heading,
+    NotusAttribute.size.key: NotusAttribute.size,
     NotusAttribute.block.key: NotusAttribute.block,
     NotusAttribute.embed.key: NotusAttribute.embed,
   };
@@ -92,11 +94,27 @@ class NotusAttribute<T> implements NotusAttributeBuilder<T> {
   // ignore: const_eval_throws_exception
   static const link = LinkAttributeBuilder._();
 
+  /// Color style attribute.
+  // ignore: const_eval_throws_exception
+  static const color = ColorAttributeBuilder._();
+
+  static NotusAttribute<String> get black => color.black;
+
+  static NotusAttribute<String> get red => color.red;
+
+  static NotusAttribute<String> get green => color.green;
+
+  static NotusAttribute<String> get blue => color.blue;
+
   // Line attributes
 
   /// Heading style attribute.
   // ignore: const_eval_throws_exception
   static const heading = HeadingAttributeBuilder._();
+
+  /// Heading style attribute.
+  // ignore: const_eval_throws_exception
+  static const size = SizeAttributeBuilder._();
 
   /// Alias for [NotusAttribute.heading.level1].
   static NotusAttribute<int> get h1 => heading.level1;
@@ -345,6 +363,24 @@ class LinkAttributeBuilder extends NotusAttributeBuilder<String> {
       NotusAttribute<String>._(key, scope, value);
 }
 
+/// Builder for color attribute values.
+///
+/// There is no need to use this class directly, consider using
+/// [NotusAttribute.color] instead.
+class ColorAttributeBuilder extends NotusAttributeBuilder<String> {
+  static const _kColor = 'color';
+  const ColorAttributeBuilder._() : super._(_kColor, NotusAttributeScope.inline);
+
+  /// Creates a link attribute with specified link [value].
+  NotusAttribute<String> fromString(String value) =>
+      NotusAttribute<String>._(key, scope, value);
+
+  NotusAttribute<String> get black => NotusAttribute<String>._(key, scope, '#000000');
+  NotusAttribute<String> get red => NotusAttribute<String>._(key, scope, '#FF0000');
+  NotusAttribute<String> get green => NotusAttribute<String>._(key, scope, '#00FF00');
+  NotusAttribute<String> get blue => NotusAttribute<String>._(key, scope, '#0000FF');
+}
+
 /// Builder for heading attribute styles.
 ///
 /// There is no need to use this class directly, consider using
@@ -362,6 +398,17 @@ class HeadingAttributeBuilder extends NotusAttributeBuilder<int> {
 
   /// Level 3 heading, equivalent of `H3` in HTML.
   NotusAttribute<int> get level3 => NotusAttribute<int>._(key, scope, 3);
+}
+
+/// Builder for size attribute styles.
+///
+/// There is no need to use this class directly, consider using
+/// [NotusAttribute.size] instead.
+class SizeAttributeBuilder extends NotusAttributeBuilder<int> {
+  static const _kSize = 'size';
+  const SizeAttributeBuilder._()
+      : super._(_kSize, NotusAttributeScope.inline);
+
 }
 
 /// Builder for block attribute styles (number/bullet lists, code and quote).

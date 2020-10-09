@@ -7,6 +7,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:notus/notus.dart';
 
+import '../../zefyr.dart';
 import 'buttons.dart';
 import 'scope.dart';
 import 'theme.dart';
@@ -20,6 +21,11 @@ enum ZefyrToolbarAction {
   clipboardCopy,
   openInBrowser,
   heading,
+  color,
+  colorBlack,
+  colorRed,
+  colorGreen,
+  colorBlue,
   headingLevel1,
   headingLevel2,
   headingLevel3,
@@ -41,6 +47,11 @@ final kZefyrToolbarAttributeActions = <ZefyrToolbarAction, NotusAttributeKey>{
   ZefyrToolbarAction.italic: NotusAttribute.italic,
   ZefyrToolbarAction.link: NotusAttribute.link,
   ZefyrToolbarAction.heading: NotusAttribute.heading,
+  ZefyrToolbarAction.color: NotusAttribute.color,
+  ZefyrToolbarAction.colorBlack: NotusAttribute.black,
+  ZefyrToolbarAction.colorRed: NotusAttribute.red,
+  ZefyrToolbarAction.colorGreen: NotusAttribute.green,
+  ZefyrToolbarAction.colorBlue: NotusAttribute.blue,
   ZefyrToolbarAction.headingLevel1: NotusAttribute.heading.level1,
   ZefyrToolbarAction.headingLevel2: NotusAttribute.heading.level2,
   ZefyrToolbarAction.headingLevel3: NotusAttribute.heading.level3,
@@ -252,6 +263,7 @@ class ZefyrToolbarState extends State<ZefyrToolbar>
     final buttons = <Widget>[
       buildButton(context, ZefyrToolbarAction.bold),
       buildButton(context, ZefyrToolbarAction.italic),
+      ColorButton(),
       LinkButton(),
       HeadingButton(),
       buildButton(context, ZefyrToolbarAction.bulletList),
@@ -338,6 +350,11 @@ class _DefaultZefyrToolbarDelegate implements ZefyrToolbarDelegate {
     ZefyrToolbarAction.bold: Icons.format_bold,
     ZefyrToolbarAction.italic: Icons.format_italic,
     ZefyrToolbarAction.link: Icons.link,
+    ZefyrToolbarAction.color: Icons.format_color_text,
+    ZefyrToolbarAction.colorBlack: Icons.format_color_text,
+    ZefyrToolbarAction.colorRed: Icons.format_color_text,
+    ZefyrToolbarAction.colorGreen: Icons.format_color_text,
+    ZefyrToolbarAction.colorBlue: Icons.format_color_text,
     ZefyrToolbarAction.unlink: Icons.link_off,
     ZefyrToolbarAction.clipboardCopy: Icons.content_copy,
     ZefyrToolbarAction.openInBrowser: Icons.open_in_new,
