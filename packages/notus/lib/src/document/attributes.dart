@@ -417,7 +417,7 @@ class HeadingAttributeBuilder extends NotusAttributeBuilder<int> {
 /// There is no need to use this class directly, consider using
 /// [NotusAttribute.] instead.
 class AlignmentAttributeBuilder extends NotusAttributeBuilder<int> {
-  static const _kAlignment = 'heading';
+  static const _kAlignment = 'alignment';
   const AlignmentAttributeBuilder._()
       : super._(_kAlignment, NotusAttributeScope.line);
 
