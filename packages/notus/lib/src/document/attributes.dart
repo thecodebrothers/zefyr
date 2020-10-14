@@ -68,6 +68,9 @@ abstract class NotusAttributeBuilder<T> implements NotusAttributeKey<T> {
 ///   * [NotusAttribute.bold]
 ///   * [NotusAttribute.italic]
 ///   * [NotusAttribute.link]
+///   * [NotusAttribute.color]
+///   * [NotusAttribute.alignment]
+///   * [NotusAttribute.size]
 ///   * [NotusAttribute.heading]
 ///   * [NotusAttribute.block]
 class NotusAttribute<T> implements NotusAttributeBuilder<T> {
@@ -77,6 +80,7 @@ class NotusAttribute<T> implements NotusAttributeBuilder<T> {
     NotusAttribute.link.key: NotusAttribute.link,
     NotusAttribute.color.key: NotusAttribute.color,
     NotusAttribute.heading.key: NotusAttribute.heading,
+    NotusAttribute.alignment.key: NotusAttribute.alignment,
     NotusAttribute.size.key: NotusAttribute.size,
     NotusAttribute.block.key: NotusAttribute.block,
   };
@@ -109,11 +113,24 @@ class NotusAttribute<T> implements NotusAttributeBuilder<T> {
 
   /// Heading style attribute.
   // ignore: const_eval_throws_exception
-  static const heading = HeadingAttributeBuilder._();
+  static const size = SizeAttributeBuilder._();
+
+  /// Alignment style attribute.
+  // ignore: const_eval_throws_exception
+  static const alignment = AlignmentAttributeBuilder._();
+
+  /// Alias for [NotusAttribute.alignment.left].
+  static NotusAttribute<int> get left => alignment.left;
+
+  /// Alias for [NotusAttribute.alignment.center].
+  static NotusAttribute<int> get center => alignment.center;
+
+  /// Alias for [NotusAttribute.alignment.right].
+  static NotusAttribute<int> get right => alignment.right;
 
   /// Heading style attribute.
   // ignore: const_eval_throws_exception
-  static const size = SizeAttributeBuilder._();
+  static const heading = HeadingAttributeBuilder._();
 
   /// Alias for [NotusAttribute.heading.level1].
   static NotusAttribute<int> get h1 => heading.level1;
@@ -393,6 +410,25 @@ class HeadingAttributeBuilder extends NotusAttributeBuilder<int> {
 
   /// Level 3 heading, equivalent of `H3` in HTML.
   NotusAttribute<int> get level3 => NotusAttribute<int>._(key, scope, 3);
+}
+
+/// Builder for alignment attribute styles.
+///
+/// There is no need to use this class directly, consider using
+/// [NotusAttribute.] instead.
+class AlignmentAttributeBuilder extends NotusAttributeBuilder<int> {
+  static const _kAlignment = 'heading';
+  const AlignmentAttributeBuilder._()
+      : super._(_kAlignment, NotusAttributeScope.line);
+
+  /// Alignment to left.
+  NotusAttribute<int> get left => NotusAttribute<int>._(key, scope, 1);
+
+  /// Alignment to center.
+  NotusAttribute<int> get center => NotusAttribute<int>._(key, scope, 2);
+
+  /// Alignment to right.
+  NotusAttribute<int> get right => NotusAttribute<int>._(key, scope, 3);
 }
 
 /// Builder for size attribute styles.
