@@ -46,6 +46,7 @@ class TextLine extends StatelessWidget {
         text: buildText(context, node),
         textDirection: textDirection,
         strutStyle: strutStyle,
+        textAlign: _getParagraphTextAlign(node.style),
         textScaleFactor: MediaQuery.textScaleFactorOf(context),
       ),
     );
@@ -70,6 +71,17 @@ class TextLine extends StatelessWidget {
       text: segment.value,
       style: _getInlineTextStyle(attrs, theme),
     );
+  }
+
+  TextAlign _getParagraphTextAlign(NotusStyle notusStyle) {
+    final alignment = node.style.get(NotusAttribute.alignment);
+    if(alignment == NotusAttribute.alignment.center) {
+      return TextAlign.center;
+    } else if(alignment == NotusAttribute.alignment.right) {
+      return TextAlign.right;
+    } else {
+      return TextAlign.left;
+    }
   }
 
   TextStyle _getParagraphTextStyle(NotusStyle style, ZefyrThemeData theme) {
